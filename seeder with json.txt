@@ -1,0 +1,19 @@
+
+
+	GET JSON FILE ->  $json=File::get(path:'database/json/subject.json');
+
+	MAKE VARIABLE ->  $subjects=collect(json_decode($json));
+
+
+		
+
+		
+MAKE LOOP FOR EACH DATA   -> $subjects->each(function($subject){
+
+      CREATE RECORD ON DB -> subject::create([
+
+           		 'SubName'=>$subject->SubName
+                      
+		      ]);
+    							   });
+       

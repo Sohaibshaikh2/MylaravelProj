@@ -1,0 +1,28 @@
+[
+    {
+        "Employe_Name":"Sohaib",
+        "Employe_age":"22",
+        "Employe_Email":"SohaibShaikh270@gmail.com"
+
+    },
+
+    {
+        "Employe_Name":"Ali",
+        "Employe_age":"25",
+        "Employe_Email":"Ali123@gmail.com"
+
+    },
+    {
+        "Employe_Name":"Arham",
+        "Employe_age":"27",
+        "Employe_Email":"Arham090@gmail.com"
+
+    },
+
+    {
+        "Employe_Name":"Akbar",
+        "Employe_age":"24",
+        "Employe_Email":"Akbar213@gmail.com"
+
+    }
+]
