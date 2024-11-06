@@ -1,34 +1,38 @@
 <script setup>
-import axios from 'axios';
-import { onMounted, ref } from 'vue';
-import { useRouter } from 'vue-router';
+import axios from 'axios'
+import { onMounted, ref } from 'vue'
+import { useRouter } from 'vue-router'
 
-const router = useRouter
+const router = useRouter()
 
 
 let invoices = ref([])
-let searchInvoices=ref([])
+let searchInvoices = ref([])
 onMounted(async () => {
     getInvoices()
 })
 
-const getInvoices=async()=>{
-    let response=await axios.get("/api/get_all_invoice")
+const getInvoices = async () => {
+    let response = await axios.get("/api/get_all_invoice")
     // console.log('response',response);
-    invoices.value=response.data.invoices
+    invoices.value = response.data.invoices
 }
 
-const search=async()=>{
-    let response=await axios.get('/api/search_invoice?s='+searchInvoices.value)
-    console.log('response',response.data.invoices)
-    invoices.value=response.data.invoices
+const search = async () => {
+    let response = await axios.get('/api/search_invoice?s=' + searchInvoices.value)
+    console.log('response', response.data.invoices)
+    invoices.value = response.data.invoices
 }
 
 
-const newInvoice=async()=>{
-    let form=await axios.get("/api/create_invoice")
+const newInvoice = async () => {
+    let form = await axios.get("/api/create_invoice")
     // console.log('form',form.data);
     router.push('/invoice/new');
+}
+
+const onShow=(id)=>{
+    router.push('/invoice/show/'+id)
 }
 
 </script>
@@ -41,7 +45,7 @@ const newInvoice=async()=>{
                     <h2 class="invoice__title">Invoices</h2>
                 </div>
                 <div>
-                    <a class="btn btn-secondary" @click="newInvoice">
+                    <a  class="btn btn-secondary" @click="newInvoice">
                         New Invoice
                     </a>
                 </div>
@@ -77,7 +81,7 @@ const newInvoice=async()=>{
                     <div class="relative">
                         <i class="table--search--input--icon fas fa-search "></i>
                         <input class="table--search--input" type="text" placeholder="Search invoice"
-                        v-model="searchInvoice" @keyup="search()">
+                            v-model="searchInvoice" @keyup="search()">
 
                     </div>
                 </div>
@@ -92,13 +96,15 @@ const newInvoice=async()=>{
                 </div>
 
                 <!-- item 1 -->
-                <div class="table--items" v-for="item in invoices" :key="item.id" v-if="invoices.length> 0">
-                    <a href="#" class="table--items--transactionId">#{{item.id}}</a>
+                <div class="table--items" v-for="item in invoices" :key="item.id" v-if="invoices.length > 0">
+                    <a href="#" @click="onShow(item.id)">
+                        #{{ item.id }}
+                    </a>
                     <p>{{ item.date }}</p>
-                    <p>#{{item.number }}</p>
-                    <p v-if="item.customer">{{item.customer.firstname }}</p>
+                    <p>#{{ item.number }}</p>
+                    <p v-if="item.customer">{{ item.customer.firstname }}</p>
                     <p v-else=""></p>
-                    <p>{{item.due_date }}</p>
+                    <p>{{ item.due_date }}</p>
                     <p>${{ item.total }}</p>
                 </div>
 
